@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>View All Classes</title>
+</head>
+<body>
+	<form>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Class Name</th>
+				<th>Subject</th>
+				<th>Course</th>
+				<th>Term</th>
+				<th>Teacher</th>
+				<th>Email</th>
+			</tr>
+			<tr th:each="currentClasses, rowStat : ${classes}">
+				<td th:text="${currentClasses.id}" />
+				<td th:text="${currentClasses.className}" />
+				<td th:text="${currentClasses.subject}" />
+				<td th:text="${currentClasses.number}" />
+				<td th:text="${currentClasses.term}" />
+				<td th:text="${currentClasses.teacher.name}" />
+				<td th:text="${currentClasses.teacher.email}" />
+				<td><a th:href="@{/edit/{id}(id=${currentClasses.id})}">Edit</a></td>
+				<td><a th:href="@{/delete/{id}(id=${currentClasses.id})}">Delete</a></td>
+			</tr>
+		</table>
+	</form>
+	<a href="../inputClasses">Add a new class</a>
+</body>
+</html>
