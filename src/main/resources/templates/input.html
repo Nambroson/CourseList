@@ -2,22 +2,70 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert New or Edit Classes</title>
+<title>Insert New or Edit Courses</title>
+<script type="text/javascript">
+      function validate() {
+      
+         if(className.value == "") {
+            alert("Please enter a course name.");
+            className.focus() ;
+            return false;
+         }
+         if(subject.value == -1) {
+            alert("Please select a subject");
+            subject.focus();
+            return false;
+         }
+         if(number.value == "" || isNaN(number.value) || number.value.length != 3) { 
+            alert("Please provide a course number in the format ###.");
+            number.focus() ;
+            return false;
+         }
+         if(term.value == -1) {
+        	 alert("Please select a term");
+             term.focus();
+             return false;
+         }
+         
+         // couldnt figure out how to get these ones to work
+         /*if(teacher.name.value == "") {
+             alert("Please enter a teacher.");
+             teacher.name.focus();
+             return false;
+         }
+         if(teacher.email.value == "") {
+             alert("Please enter an email.");
+             teacher.email.focus();
+             return false;
+         } */
+         return(true);
+      }
+      
+</script>
 </head>
 <body>
-	<form th:object="${newClasses}" th:action="@{/update/{id}(id=${newClasses.id})}" method=POST>
+	<form th:object="${newClasses}" th:action="@{/update/{id}(id=${newClasses.id})}" method=POST onsubmit="return(validate());">
 		Course Name: <input name="className" size="20" th:field="*{className}">
-		<br />
-		Course Subject: <input name="subject" size="20" th:field="*{subject}">
 		<br /> 
-		Course Number: <input name="number" size="20" th:field="*{number}">
+		Course Subject: <select name="subject" th:field="*{subject}">
+			<option value="-1" selected></option>
+			<option value="BUS">BUS</option>
+			<option value="CIS">CIS</option>
+			<option value="WDV">WDV</option>
+		</select> 
 		<br /> 
-		Term: <input name="term" size="20" th:field="*{term}">
-		<br />
-		Teacher: <input name="teacher.name" size="20" th:field="*{teacher.name}">
-		<br />
-		Email: <input name="teacher.email" size="20" th:field="*{teacher.email}">
+		Course Number: <input name="number" size="20" th:field="*{number}"> 
 		<br /> 
+		Term: <select name="term" th:field="*{term}">
+			<option value="-1" selected></option>
+			<option value="Fall 2021">Fall 2021</option>
+			<option value="Spring 2022">Spring 2022</option>
+		</select> 
+		<br /> 
+		Teacher: <input name="teacher.name" size="20" th:field="*{teacher.name}" required> 
+		<br /> 
+		Email: <input name="teacher.email" size="20" th:field="*{teacher.email}" required> 
+		<br />
 		<input name="Submit" type="submit" value="submit" />
 	</form>
 	<a href="../viewAll">View All Classes</a>
